@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>GreenGrow | Farming Dashboard</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f8f2;
+            color: #203329;
+            line-height: 1.6;
+        }
+
+        button, input {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        header {
+            background: white;
+            padding: 18px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 12px #0000000a;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+            color: #23834c;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .logout {
+            border: none;
+            background: #23834c;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 8px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 35px 22px;
+        }
+
+        .welcome {
+            background: #174a30;
+            color: white;
+            padding: 35px;
+            border-radius: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .welcome h1 {
+            font-size: clamp(25px, 4vw, 38px);
+            margin-bottom: 8px;
+        }
+
+        .welcome p {
+            color: #dcefe0;
+        }
+
+        .welcome-icon {
+            font-size: 70px;
+        }
+
+        .section-title {
+            margin: 35px 0 18px;
+            font-size: 25px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 23px;
+            border-radius: 14px;
+            box-shadow: 0 5px 20px #00000005;
+            border: 1px solid #e6eee4;
+        }
+
+        .stat-icon {
+            font-size: 30px;
+        }
+
+        .stat-card h3 {
+            font-size: 15px;
+            color: #68766d;
+            margin: 10px 0;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: bold;
+            color: #23834c;
+        }
+
+        .demo-note {
+            margin-top: 15px;
+            font-size: 13px;
+            color: #718075;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px;
+            margin-top: 30px;
+        }
+
+        .panel {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid #e6eee4;
+        }
+
+        .panel h2 {
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+
+        .water-bar {
+            width: 100%;
+            height: 14px;
+            background: #e5eee6;
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+
+        .water-fill {
+            width: 75%;
+            height: 100%;
+            background: #35a765;
+            border-radius: 20px;
+        }
+
+        .crop-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+
+        .crop {
+            padding: 18px;
+            background: #f0f7ef;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .crop span {
+            font-size: 32px;
+        }
+
+        .crop h3 {
+            margin-top: 7px;
+            color: #267a46;
+        }
+
+        .tracker-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .tracker-form label {
+            display: block;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .tracker-form input {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #d5e2d7;
+            border-radius: 7px;
+        }
+
+        .tracker-form button {
+            grid-column: 1 / -1;
+            padding: 12px;
+            background: #23834c;
+            color: white;
+            border: none;
+            border-radius: 8px;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 430px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 12px 8px;
+            border-bottom: 1px solid #e6eee4;
+        }
+
+        th {
+            color: #267a46;
+            background: #f4f8f2;
+        }
+
+        .delete-btn {
+            background: #ffe9e7;
+            color: #b42318;
+            border: none;
+            border-radius: 5px;
+            padding: 6px 10px;
+        }
+
+        .empty-message {
+            margin-top: 15px;
+            color: #718075;
+        }
+
+        footer {
+            text-align: center;
+            background: #103a25;
+            color: white;
+            padding: 23px;
+            margin-top: 35px;
+        }
+
+        @media (max-width: 900px) {
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 650px) {
+            header {
+                padding: 15px;
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+
+            .header-right {
+                gap: 8px;
+            }
+
+            .welcome {
+                padding: 25px;
+            }
+
+            .welcome-icon {
+                font-size: 42px;
+            }
+
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                gap: 12px;
+            }
+
+            .stat-card {
+                padding: 16px;
+            }
+
+            .stat-value {
+                font-size: 23px;
+            }
+
+            .container {
+                padding: 22px 14px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .tracker-form {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">🌿 GreenGrow</div>
+
+    <div class="header-right">
+        <span id="userName">Farmer</span>
+        <button class="logout" id="logoutButton">Logout ↗</button>
+    </div>
+</header>
+
+<main class="container">
+
+    <!-- Welcome Banner -->
+    <section class="welcome">
+        <div>
+            <h1>Welcome, <span id="welcomeName">Farmer</span>! 🌱</h1>
+            <p>Your smart vertical farming dashboard.</p>
+        </div>
+
+        <div class="welcome-icon">🪴</div>
+    </section>
+
+    <!-- Statistics -->
+    <h2 class="section-title">Farm Overview</h2>
+
+    <section class="stats">
+
+        <article class="stat-card">
+            <div class="stat-icon">🌡️</div>
+            <h3>Temperature</h3>
+            <div class="stat-value">24°C</div>
+        </article>
+
+        <article class="stat-card">
+            <div class="stat-icon">💧</div>
+            <h3>Humidity</h3>
+            <div class="stat-value">65%</div>
+        </article>
+
+        <article class="stat-card">
+            <div class="stat-icon">🌿</div>
+            <h3>Plants Tracked</h3>
+            <div class="stat-value" id="plantCount">0</div>
+        </article>
+
+        <article class="stat-card">
+            <div class="stat-icon">🌱</div>
+            <h3>Growing Systems</h3>
+            <div class="stat-value">3</div>
+        </article>
+
+    </section>
+
+    <p class="demo-note">
+        Note: Temperature and humidity are sample values for this college project,
+        not readings from real sensors.
+    </p>
+
+    <section class="main-grid">
+
+        <!-- Water Level -->
+        <article class="panel">
+            <h2>💧 Water Level</h2>
+            <p>Sample reservoir level: <strong>75%</strong></p>
+
+            <div
+                class="water-bar"
+                role="progressbar"
+                aria-label="Sample water level"
+                aria-valuenow="75"
+                aria-valuemin="0"
+                aria-valuemax="100">
+
+                <div class="water-fill"></div>
+            </div>
+
+            <p>Demo status: Water level is sufficient.</p>
+        </article>
+
+        <!-- Crop Guide -->
+        <article class="panel">
+            <h2>🥬 Quick Crop Guide</h2>
+
+            <div class="crop-list">
+                <div class="crop">
+                    <span>🥬</span>
+                    <h3>Lettuce</h3>
+                    <p>Leafy vegetable</p>
+                </div>
+
+                <div class="crop">
+                    <span>🍓</span>
+                    <h3>Strawberry</h3>
+                    <p>Fruit crop</p>
+                </div>
+
+                <div class="crop">
+                    <span>🌿</span>
+                    <h3>Mint</h3>
+                    <p>Herb</p>
+                </div>
+
+                <div class="crop">
+                    <span>🥗</span>
+                    <h3>Spinach</h3>
+                    <p>Leafy vegetable</p>
+                </div>
+            </div>
+        </article>
+
+    </section>
+
+    <!-- Plant Growth Tracker -->
+    <h2 class="section-title">🌱 Plant Growth Tracker</h2>
+
+    <section class="panel">
+
+        <p>
+            Record your plant's height and date to monitor its growth.
+        </p>
+
+        <br>
+
+        <form id="growthForm" class="tracker-form">
+
+            <div>
+                <label for="plantName">Plant Name</label>
+                <input
+                    type="text"
+                    id="plantName"
+                    placeholder="e.g. Lettuce"
+                    required>
+            </div>
+
+            <div>
+                <label for="plantHeight">Height (cm)</label>
+                <input
+                    type="number"
+                    id="plantHeight"
+                    min="0"
+                    max="10000"
+                    step="0.1"
+                    placeholder="e.g. 12.5"
+                    required>
+            </div>
+
+            <div>
+                <label for="recordDate">Date</label>
+                <input type="date" id="recordDate" required>
+            </div>
+
+            <button type="submit">+ Add Growth Record</button>
+
+        </form>
+
+        <p id="trackerStatus" role="status" aria-live="polite"></p>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Plant</th>
+                        <th>Height</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody id="growthTable"></tbody>
+            </table>
+        </div>
+
+        <p class="empty-message" id="emptyMessage">
+            No growth records yet. Add your first plant above.
+        </p>
+
+    </section>
+
+</main>
+
+<footer>
+    <p>© 2026 GreenGrow | Vertical Farming College Project 🌿</p>
+</footer>
+
+<script src="dashboard.js"></script>
+
+</body>
+</html>
+```

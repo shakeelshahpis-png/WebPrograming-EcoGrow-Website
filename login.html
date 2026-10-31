@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecogrow Login</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: #f1f8f0;
+            color: #193b28;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 950px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: white;
+            border-radius: 22px;
+            overflow: hidden;
+            box-shadow: 0 15px 45px #174a301a;
+        }
+
+        .left {
+            background: #174a30;
+            color: white;
+            padding: 45px 35px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .left h1 {
+            font-size: 40px;
+            line-height: 1.2;
+        }
+
+        .left h1 span {
+            color: #80dfa0;
+        }
+
+        .left p {
+            line-height: 1.8;
+        }
+
+        .right {
+            padding: 45px 35px;
+        }
+
+        h2 {
+            margin-top: 0;
+            font-size: 30px;
+        }
+
+        .subtitle {
+            color: #718075;
+            line-height: 1.5;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin: 25px 0;
+        }
+
+        button {
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 13px;
+            border: 1px solid #d5e2d7;
+            background: white;
+            border-radius: 8px;
+        }
+
+        .tab.active {
+            background: #23834c;
+            color: white;
+        }
+
+        label {
+            display: block;
+            margin: 16px 0 7px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #d5e2d7;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        .submit {
+            width: 100%;
+            padding: 14px;
+            margin-top: 24px;
+            background: #23834c;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .submit:hover,
+        .tab:hover {
+            opacity: 0.85;
+        }
+
+        #status {
+            line-height: 1.5;
+            overflow-wrap: anywhere;
+        }
+
+        .back {
+            display: block;
+            text-align: center;
+            margin-top: 25px;
+            color: #23834c;
+            text-decoration: none;
+        }
+
+        @media (max-width: 700px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .left {
+                padding: 25px;
+            }
+
+            .left h1 {
+                font-size: 30px;
+            }
+
+            .right {
+                padding: 30px 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <section class="left">
+        <h2>🌿 Ecogrow</h2>
+        <h1>Grow More.<br>Use Less.<br>
+            <span>Live Greener.</span>
+        </h1>
+        <p>
+            Welcome to smart vertical farming.
+            Explore innovative growing methods
+            and manage your farming project.
+        </p>
+        <div style="font-size: 45px;">🌱 🪴 🌿</div>
+    </section>
+
+    <section class="right">
+
+        <h2 id="heading">Welcome Back!</h2>
+        <p class="subtitle" id="subtitle">
+            Login to explore your farming dashboard.
+        </p>
+
+        <div class="tabs">
+            <button type="button" class="tab active" id="loginTab">
+                Login
+            </button>
+
+            <button type="button" class="tab" id="registerTab">
+                Register
+            </button>
+        </div>
+
+        <form id="authForm">
+
+            <div id="nameBox" hidden>
+                <label for="name">Full Name</label>
+                <input id="name" type="text"
+                       placeholder="Enter your name">
+            </div>
+
+            <label for="email">Email Address</label>
+            <input id="email" type="email"
+                   placeholder="Enter your email" required>
+
+            <label for="password">Password</label>
+            <input id="password" type="password"
+                   placeholder="At least 6 characters"
+                   minlength="6" required>
+
+            <button class="submit" type="submit" id="submitButton">
+                Login
+            </button>
+
+        </form>
+
+        <p id="status" role="status" aria-live="polite"></p>
+
+        <a class="back" href="index.html">
+            ← Back to GreenGrow Home
+        </a>
+
+    </section>
+
+</div>
+
+<script>
+    const loginTab = document.getElementById("loginTab");
+    const registerTab = document.getElementById("registerTab");
+    const nameBox = document.getElementById("nameBox");
+    const nameInput = document.getElementById("name");
+    const heading = document.getElementById("heading");
+    const subtitle = document.getElementById("subtitle");
+    const submitButton = document.getElementById("submitButton");
+    const authForm = document.getElementById("authForm");
+    const status = document.getElementById("status");
+
+    let mode = "login";
+
+    function changeMode(newMode) {
+        mode = newMode;
+
+        const registering = mode === "register";
+
+        nameBox.hidden = !registering;
+        nameInput.required = registering;
+
+        loginTab.classList.toggle("active", !registering);
+        registerTab.classList.toggle("active", registering);
+
+        heading.textContent = registering
+            ? "Create Account"
+            : "Welcome Back!";
+
+        subtitle.textContent = registering
+            ? "Create your GreenGrow demo account."
+            : "Login to explore your farming dashboard.";
+
+        submitButton.textContent = registering
+            ? "Create Account"
+            : "Login";
+
+        status.textContent = "";
+    }
+
+    loginTab.onclick = function () {
+        changeMode("login");
+    };
+
+    registerTab.onclick = function () {
+        changeMode("register");
+    };
+
+    authForm.onsubmit = function (event) {
+        event.preventDefault();
+
+        const name = nameInput.value.trim();
+        const email = document.getElementById("email")
+            .value.trim().toLowerCase();
+        const password = document.getElementById("password").value;
+
+        let users = [];
+
+        try {
+            users = JSON.parse(
+                localStorage.getItem("greengrowDemoUsers") || "[]"
+            );
+
+            if (!Array.isArray(users)) users = [];
+        } catch (error) {
+            users = [];
+        }
+
+        if (mode === "register") {
+            if (!name) {
+                status.textContent = "Please enter your name.";
+                return;
+            }
+
+            if (users.some(user => user.email === email)) {
+                status.textContent =
+                    "Email already registered. Please login.";
+                return;
+            }
+
+            users.push({
+                name: name,
+                email: email,
+                password: password
+            });
+
+            localStorage.setItem(
+                "greengrowDemoUsers",
+                JSON.stringify(users)
+            );
+
+            authForm.reset();
+            changeMode("login");
+
+            status.textContent =
+                "Registration successful! Now login.";
+
+        } else {
+            const user = users.find(
+                user => user.email === email &&
+                        user.password === password
+            );
+
+            if (!user) {
+                status.textContent =
+                    "Account not found. Register first.";
+                return;
+            }
+
+            sessionStorage.setItem(
+                "greengrowDemoUser",
+                JSON.stringify({
+                    name: user.name,
+                    email: user.email
+                })
+            );
+
+            window.location.href = "dashboard.html";
+        }
+    };
+</script>
+
+</body>
+</html>

@@ -1,0 +1,421 @@
+```css
+/* Basic Settings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 90px;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f8fbf6;
+    color: #203329;
+    line-height: 1.7;
+}
+
+a {
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* Navigation */
+header {
+    background: #ffffff;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.navbar {
+    max-width: 1200px;
+    margin: auto;
+    padding: 18px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    color: #207344;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+.nav-links a {
+    color: #263a2e;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: #32a665;
+}
+
+.menu-toggle {
+    display: none;
+    border: none;
+    background: transparent;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+/* Hero Section */
+.hero {
+    max-width: 1200px;
+    margin: auto;
+    padding: 75px 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 50px;
+}
+
+.tagline {
+    color: #2a9b5c;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.hero h1 {
+    font-size: clamp(42px, 5vw, 68px);
+    line-height: 1.12;
+    margin: 20px 0;
+    color: #173b28;
+}
+
+.hero h1 span {
+    color: #35a765;
+}
+
+.hero-content p {
+    color: #637168;
+    font-size: 17px;
+    max-width: 490px;
+    margin-bottom: 30px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 14px 25px;
+    background: #23834c;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #145d34;
+    transform: translateY(-2px);
+}
+
+.hero-image img {
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+    border-radius: 25px;
+    box-shadow: 0 18px 45px rgba(25, 80, 44, 0.15);
+}
+
+/* Common Sections */
+.section {
+    padding: 85px 24px;
+}
+
+.section-heading {
+    text-align: center;
+    max-width: 750px;
+    margin: 0 auto 45px;
+}
+
+.section-heading h2,
+.benefit-content h2 {
+    font-size: clamp(30px, 4vw, 43px);
+    line-height: 1.25;
+    color: #183d29;
+    margin: 12px 0;
+}
+
+.section-heading p {
+    color: #718075;
+}
+
+/* About */
+.about {
+    background: #edf6eb;
+}
+
+.about-text {
+    max-width: 850px;
+    margin: 0 auto;
+    text-align: center;
+    color: #607065;
+    font-size: 17px;
+}
+
+.stats {
+    max-width: 1100px;
+    margin: 45px auto 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+}
+
+.stat-card {
+    background: white;
+    padding: 30px 20px;
+    text-align: center;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04);
+}
+
+.stat-card span {
+    font-size: 35px;
+}
+
+.stat-card h3 {
+    margin: 12px 0 5px;
+    color: #267a46;
+}
+
+.stat-card p {
+    color: #718075;
+}
+
+/* Farming Systems */
+.systems {
+    background: white;
+}
+
+.card-container {
+    max-width: 1100px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.farm-card {
+    padding: 35px 25px;
+    border: 1px solid #e3eee4;
+    border-radius: 15px;
+    background: #fbfefb;
+    transition: 0.3s;
+}
+
+.farm-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(30, 100, 55, 0.1);
+}
+
+.card-icon {
+    font-size: 38px;
+    margin-bottom: 15px;
+}
+
+.farm-card h3 {
+    color: #267a46;
+    font-size: 23px;
+    margin-bottom: 10px;
+}
+
+.farm-card p {
+    color: #68766d;
+}
+
+/* Crops */
+.crops {
+    background: #f0f7ef;
+}
+
+.crop-container {
+    max-width: 1100px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.crop-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    transition: 0.3s;
+}
+
+.crop-card:hover {
+    transform: translateY(-5px);
+}
+
+.crop-card img {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+}
+
+.crop-card h3 {
+    color: #267a46;
+    font-size: 22px;
+    padding: 18px 20px 5px;
+}
+
+.crop-card p {
+    color: #718075;
+    padding: 0 20px 22px;
+}
+
+/* Benefits */
+.benefits {
+    background: #174a30;
+    color: white;
+}
+
+.benefit-content {
+    max-width: 800px;
+    margin: auto;
+}
+
+.benefit-content h2 {
+    color: white;
+    margin-bottom: 25px;
+}
+
+.benefit-content .tagline {
+    color: #a8e6b9;
+}
+
+.benefit-content ul {
+    list-style: none;
+}
+
+.benefit-content li {
+    padding: 10px 0;
+    font-size: 17px;
+}
+
+/* Contact */
+.contact {
+    background: white;
+}
+
+#contactForm {
+    max-width: 600px;
+    margin: auto;
+    padding: 30px;
+    background: #f6faf5;
+    border-radius: 15px;
+}
+
+#contactForm label {
+    display: block;
+    margin: 15px 0 6px;
+    font-weight: bold;
+}
+
+#contactForm input,
+#contactForm textarea {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #d5e2d7;
+    border-radius: 7px;
+    background: white;
+    font: inherit;
+}
+
+#contactForm input:focus,
+#contactForm textarea:focus {
+    outline: 2px solid #35a765;
+    border-color: transparent;
+}
+
+#contactForm textarea {
+    resize: vertical;
+    margin-bottom: 20px;
+}
+
+#formStatus {
+    margin-top: 15px;
+    color: #207344;
+}
+
+/* Footer */
+footer {
+    background: #103a25;
+    color: #e6f5e9;
+    text-align: center;
+    padding: 25px;
+}
+
+/* Mobile and Tablet Responsive Design */
+@media (max-width: 768px) {
+    .navbar {
+        flex-wrap: wrap;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        gap: 0;
+        padding-top: 15px;
+    }
+
+    .nav-links.open {
+        display: flex;
+    }
+
+    .nav-links a {
+        display: block;
+        padding: 10px 0;
+    }
+
+    .hero {
+        grid-template-columns: 1fr;
+        padding-top: 45px;
+        gap: 30px;
+    }
+
+    .hero-image img {
+        height: 320px;
+    }
+
+    .stats,
+    .card-container,
+    .crop-container {
+        grid-template-columns: 1fr;
+    }
+
+    .section {
+        padding: 60px 20px;
+    }
+
+    #contactForm {
+        padding: 22px;
+    }
+}
+```
